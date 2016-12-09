@@ -19,8 +19,12 @@ public:
 signals:
     void getJoke(int);
 
+public slots:
+    void setBusy();
+    void setNotBusy();
+
 private slots:
-    void on_pushButton_clicked();
+    void on_btnGetJoke_clicked();
 
 private:
     Ui::MainWindow *ui;

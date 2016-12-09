@@ -9,7 +9,11 @@ Startup::Startup() :
   m_model{*new ChuckitModel(this)}
 {
     connect(&m_mainwindow, &MainWindow::getJoke, &m_model, &ChuckitModel::getJoke);
+    connect(&m_mainwindow, &MainWindow::getJoke, &m_mainwindow, &MainWindow::setBusy);
+
     connect(&m_model, &ChuckitModel::tellJoke, this, &Startup::printJoke);
+    connect(&m_model, &ChuckitModel::tellJoke, &m_mainwindow, &MainWindow::setNotBusy);
+
 }
 
 Startup::~Startup()

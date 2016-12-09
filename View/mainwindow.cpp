@@ -1,13 +1,13 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
+{    
     ui->setupUi(this);
-    //ui->teJoke->setReadOnly(true);
-    ui->teJoke->setAlignment(Qt::AlignVCenter);
+    ui->lblJoke->setAlignment(Qt::AlignVCenter);
 }
 
 MainWindow::~MainWindow()
@@ -17,10 +17,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::setPlainText(QString &str)
 {
-    ui->teJoke->setText(str);
+    ui->lblJoke->setText(str);
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::setNotBusy()
 {
-    emit getJoke(1);
+    ui->pbBusy->setMaximum(100);
+}
+
+void MainWindow::setBusy()
+{
+    ui->pbBusy->setMaximum(0);
+}
+
+void MainWindow::on_btnGetJoke_clicked()
+{
+   emit getJoke(1);
 }
