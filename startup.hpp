@@ -2,17 +2,27 @@
 #pragma once
 #include <QObject>
 
-namespace MyNamespace{
-    class Settings : public QObject
-    {
-        Q_OBJECT
-    public:
-        explicit Settings(QObject *parent=0);
 
-    private:
-        explicit Settings(const Settings& rhs) = delete;
-        Settings& operator= (const Settings& rhs) = delete;
-    };
-    }
+class MainWindow;
+class ChuckitModel;
+
+class Startup : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Startup();
+    ~Startup();
+
+    void show();
+public slots:
+    void printJoke(QString joke);
+private:
+    MainWindow& m_mainwindow;
+    ChuckitModel& m_model;
+
+    explicit Startup(const Startup& rhs) = delete;
+    Startup& operator= (const Startup& rhs) = delete;
+};
+
 
 
