@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = chuckit
 TEMPLATE = app
 
+ICON = icons/chuckit.icns
 #QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += main.cpp\
