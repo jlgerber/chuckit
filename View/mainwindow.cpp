@@ -6,7 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->teJoke->setReadOnly(true);
+    //ui->teJoke->setReadOnly(true);
+    ui->teJoke->setAlignment(Qt::AlignVCenter);
 }
 
 MainWindow::~MainWindow()
@@ -16,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setPlainText(QString &str)
 {
-    ui->teJoke->setPlainText(str);
+    ui->teJoke->setText(str);
 }
 
 void MainWindow::on_pushButton_clicked()
