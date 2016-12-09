@@ -29,7 +29,11 @@
       <property name="title">
        <string>Results</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QTableWidget" name="twJoke"/>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
