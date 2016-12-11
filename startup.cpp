@@ -1,18 +1,25 @@
 #include "startup.hpp"
 #include "View/mainwindow.hpp"
 #include "Model/chuckitmodel.hpp"
+#include "Model/chuckconfig.hpp"
+
 #include <QDebug>
+#include <QJsonArray>
 
 Startup::Startup() :
     QObject(nullptr) ,
   m_mainwindow{*new MainWindow(nullptr)},
-  m_model{*new ChuckitModel(this)}
+  m_config{*new ChuckitConfig(this)},
+  m_model{*new ChuckitModel(this, m_config)}
 {
-    connect(&m_mainwindow, &MainWindow::getJoke, &m_model, &ChuckitModel::getJoke);
-    connect(&m_mainwindow, &MainWindow::getJoke, &m_mainwindow, &MainWindow::setBusy);
+    m_mainwindow.setJokeCnt(m_config.getJokeCnt());
+    m_mainwindow.setTableHeaders(m_config.getHeaderPairs());
 
-    connect(&m_model, &ChuckitModel::tellJoke, this, &Startup::printJoke);
-    connect(&m_model, &ChuckitModel::tellJoke, &m_mainwindow, &MainWindow::setNotBusy);
+    connect(&m_mainwindow, &MainWindow::getJokes, &m_model, &ChuckitModel::getJokes);
+    connect(&m_mainwindow, &MainWindow::getJokes, &m_mainwindow, &MainWindow::setBusy);
+
+    connect(&m_model, &ChuckitModel::tellJokes, &m_mainwindow, &MainWindow::setJokes);
+    connect(&m_model, &ChuckitModel::tellJokes, &m_mainwindow, &MainWindow::setNotBusy);
 
 }
 
@@ -21,10 +28,7 @@ Startup::~Startup()
     delete &m_mainwindow;
 }
 
-void Startup::printJoke(QString joke) {
-    qDebug() << "Here is the Joke" << joke << endl;
-    m_mainwindow.setPlainText(joke);
-}
+
 
 void Startup::show()
 {
